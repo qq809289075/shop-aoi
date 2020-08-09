@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+    "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fh.shop.api.type.mapper.ITypeMapper">
+
+	<select id="findTypeList" resultType="com.fh.shop.api.type.po.Type">
+         select * from fh_type
+	</select>
+    <insert id="addType" parameterType="com.fh.shop.api.type.po.Type" useGeneratedKeys="true" keyProperty="id">
+
+           insert into fh_type(typeName,pid) values (#{typeName},#{pid})
+	</insert>
+
+	<delete id="deleteType" parameterType="java.util.List">
+		 delete from fh_type where id in
+		 <foreach collection="list" item="id" open="(" close=")" separator=",">
+                  #{id}
+		 </foreach>
+	</delete>
+
+	<select id="findTypeById" parameterType="long" resultType="com.fh.shop.api.type.po.Type">
+            select * from fh_type where id=#{v}
+	</select>
+
+	<update id="editType" parameterType="com.fh.shop.api.type.po.Type">
+          update fh_type set typeName=#{typeName} where id=#{id}
+	</update>
+	<select id="findTypeByPid" parameterType="Long" resultType="com.fh.shop.api.type.po.Type">
+		select * from fh_type where pid=#{pid}
+	</select>
+</mapper>
